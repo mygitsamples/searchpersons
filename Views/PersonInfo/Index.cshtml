@@ -1,0 +1,140 @@
+﻿
+@model IEnumerable<SearchPersons.Models.PersonInfo>
+
+@{
+	ViewBag.Title = "Index";
+}
+<script src="~/Scripts/PersonInfo/PersonInfo.js"></script>
+<style>
+	.input-group {
+		display: block;
+	}
+</style>
+<div class="page-header">
+	<h2>Person Info</h2>
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addperson"> Add Person</button>
+</div>
+
+
+<div class="input-group">
+	<input type="text" id="txtSearch" class="form-control" maxlength="10" onkeyup="textupdate()" placeholder="Search" name="search">
+	<button id="btnSearch" class="btn btn-default" type="submit" onclick="location.href='@Url.Action("Index", "PersonInfo")?personname=' + document.getElementById('txtSearch').value" disabled>
+		<i class="glyphicon glyphicon-search"></i>
+	</button>
+
+</div>
+<br />
+
+<div class="container">
+
+	<div class="modal" id="addperson">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Add Person</h4>
+				</div>
+				<div class="modal-body">
+					<table class="table table-condensed">
+						<tr>
+							<td>
+								<label>First Name:</label>
+							</td>
+							<td>
+								<input type="text" class="form-control" id="firstname" placeholder="First Name" name="firstname">
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label>Last Name:</label>
+							</td>
+							<td>
+								<input type="text" class="form-control" id="lastname" placeholder="Last Name" name="lastname">
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label>Gender:</label>
+							</td>
+							<td>
+								<select type="text" class="form-control" id="gender" placeholder="Gender" name="gender">
+									<option>Select Gender</option>
+									<option value="Male">M</option>
+									<option value="FeMale">F</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label>State:</label>
+							</td>
+							<td>
+								<select type="text" class="form-control" id="state" placeholder="State" name="state" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label>DOB:</label>
+							</td>
+							<td>
+								<input id="date" class="form-control" type="date">
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" onclick="validatepersons()">Submit</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</div>
+<div class="panel panel-default pre-scrollable">
+
+	<table class="table table-striped table-bordered table-responsive table-condensed table-hover">
+		<thead>
+			<tr>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Gender</th>
+				<th>State</th>
+				<th>DOB</th>
+			</tr>
+		</thead>
+		<tbody>
+			
+				@foreach (var items in Model)
+				{
+					<tr>
+						<td>
+							@Html.DisplayFor(modelItem => items.FirstName)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => items.LastName)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => items.Gender)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => items.StateCode)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => items.DOB)
+						</td>
+						<td>
+							<button class="btn glyphicon glyphicon-pencil" data-toggle="modal" data-target="#addperson" />
+						</td>
+					</tr>
+
+				}
+
+			
+
+		</tbody>
+	</table>
+</div>
+
+
+
